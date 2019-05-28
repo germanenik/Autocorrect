@@ -1,0 +1,15 @@
+import os
+
+
+def main():
+	pass
+	#sentence = input("Enter a sentence to be corrected: ")
+	#print(sentence)
+	
+
+if __name__ == '__main__':
+	main()
+
+
+os.system("ssh germans@rice.stanford.edu python3 -u - < autocorrect.py")
+#to copy files: scp {filepath} {ssh loc}:.
