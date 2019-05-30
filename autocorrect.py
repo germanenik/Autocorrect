@@ -5,18 +5,30 @@ import numpy as np
 
 def main():
 	ACCURACY = 0.95
-	personal words = list()
 
 	sentence = "Hellof how are you doin"
 	#print(process(sentence, df, ACCURACY))
 
-	word = "only"
-	df = pd.read_csv("~/english-words/words.txt", sep='\n')
-	possibles = getCandidateWords(word, df)
+	word = "he"
 
-	print(possibles)
+	#datasets
+	personal_words = list()
+	trigrams = pd.read_csv("~/w3_.txt", encoding="ISO-8859-1", sep='\t', names=["count", "first", "second", "third"])
 
-def process(sentence: str, df):
+	#print(trigrams.shape)
+
+	allwords = pd.read_csv("~/english-words/words.txt", sep='\n')
+	possibles = getCandidateWords(word, allwords)
+	total_size_L = calcTotalSize(possibles)
+
+	
+
+
+	print(probabilites_med)
+
+	#print(possibles)
+
+def process(sentence: str, allwords, trigrams):
 
 	#work on this after college
 	if len(sentence.split()) < 3:
@@ -25,8 +37,18 @@ def process(sentence: str, df):
 
 	output = str()
 	potential = sentence[:2]
+	probabilites_med = defaultdict(list)
 	for word in sentence[2:]:
-		possibles = getCandidateWords(word, df, upper_bound=3)
+
+
+		possibles = getCandidateWords(word, allwords, upper_bound=3)
+		total_size_L = calcTotalSize(possibles)
+		#now the keys are probability of each word appearing
+		for key in possibles:
+			probabilites_med[np.log(1/key) - total_size_L] = possibles[key]
+
+		prob_ngram = performBayes()
+
 
 	return output
 
@@ -34,6 +56,18 @@ def process(sentence: str, df):
 
 def makeADecision(word):
 	pass
+
+def getProbOfMED(key, total_size_L):
+	return np.log(1/key) - total_size_L
+
+def calcTotalSize(possibles):
+	total = 0
+	for key in possibles:
+		total += len(possibles[key])/key
+
+	return np.log(total)
+
+
 
 def getCandidateWords(word, df, upper_bound=4):
 	#df_candidates = df.apply(calcMinEditDist, args = (word,))
@@ -44,7 +78,7 @@ def getCandidateWords(word, df, upper_bound=4):
 		poss_w = str(row[1])
 		dist = calcMinEditDist(word, poss_w)
 
-		if dist != -1 and dist <= upper_bound:
+		if dist != -1 and dist != 0 and dist <= upper_bound:
 			possibles[dist].append(poss_w)
 
 	return possibles
@@ -60,7 +94,8 @@ def calcMinEditDist(w: str, c: str):
 		return -1
 
 def performBayes(ngram: str):
-	pass
+	
+	return np.log(1)
 
 def weighAdjKeys(w: str):
 	pass
