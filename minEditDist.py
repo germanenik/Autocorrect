@@ -36,7 +36,7 @@ def MED(source, target):
             grid[row][col] = minof3(a, b, c)
 
             #midpt check
-            if grid[lenghtS / 2][lengthT / 2] > 4:
+            if grid[lengthS // 2][lengthT // 2] > 3:
                 return -1
 
             #printList(grid)

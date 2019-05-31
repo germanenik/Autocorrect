@@ -1,17 +1,4 @@
 
-#ask user for input
-def askForInput(word_type):
-    return input("Please enter a " + word_type + " word: ")
-
-#prints out the graph with the source word on top and the target word
-#on the left
-def printList(l):
-    for arr in l:
-        for num in arr:
-            print(num, end = ' ')
-            
-        print(end = '\n')
-
 #finds the minimum between three values
 #attempting to replicate the ternary operator in C++
 def minof3(a, b, c):
@@ -48,10 +35,25 @@ def MED(source, target):
             c = grid[row][col - 1] + 1
             grid[row][col] = minof3(a, b, c)
 
+            #midpt check
+            if grid[lenghtS / 2][lengthT / 2] > 2:
+                return -1
+
             #printList(grid)
             #print()
-            
-    
-
     
     return grid[-1][-1]
+
+
+#ask user for input
+def askForInput(word_type):
+    return input("Please enter a " + word_type + " word: ")
+
+#prints out the graph with the source word on top and the target word
+#on the left
+def printList(l):
+    for arr in l:
+        for num in arr:
+            print(num, end = ' ')
+            
+        print(end = '\n')

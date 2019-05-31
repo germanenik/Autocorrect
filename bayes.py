@@ -1,2 +1,0 @@
-def bayes(word):
-	pass
