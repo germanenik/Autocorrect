@@ -6,10 +6,7 @@ import time
 
 def main():
 	t0 = time.time()
-	ACCURACY = 0.95
-
-	sentence = "The United States rokcs moree than anipene"
-	#sentence = "Hellof how are you doin"
+	sentence = "This class is thouhght prrovoking and chalengin"
 	#word = "sotoe"
 
 	#datasets
@@ -19,9 +16,9 @@ def main():
 	#words.txt
 	print("built dataframes")
 	#print(getCandidateWords(word, allwords))
-	print(calcMinEditDist('anyone', 'anipene'))
+	#print(calcMinEditDist('anyone', 'anipene'))
 
-	#print(process(sentence, allwords, trigrams))
+	print(process(sentence, allwords, trigrams))
 	t1 = time.time()
 	print('time elapsed: ', t1 - t0)
 
@@ -30,7 +27,6 @@ def process(sentence, allwords, trigrams, accuracy=0.95):
 	#work on this after college
 	if len(sentence.split()) < 3:
 		return sentence
-	
 	
 
 	#make array of words
@@ -114,8 +110,8 @@ def calcPrior(word, prev_two, trigrams):
 	else:
 		return np.log(0.0001)
 
-def getProbOfMED(key, total_size_L):
-	return np.log(1/key) - total_size_L
+#def getProbOfMED(key, total_size_L):
+	#return np.log(1/key) - total_size_L
 
 def calcTotalSize(possibles):
 	total = 0
